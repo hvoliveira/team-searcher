@@ -14,10 +14,5 @@
 
 
 <ion-content padding>
-  <button ion-button (click)="manuallyGoBack()">Go Back</button>
-  <ion-list>
-    <button ion-item (click)="itemTapped()">Campeonato Paulista</button>
-    <button ion-item (click)="itemTapped()">Campeonato Brasileiro </button>
-  </ion-list>
-
+  <button ion-item *ngFor="let tournament of tournaments" (click)="itemTapped($event, tournament)">{{tournament.name}}</button> 
 </ion-content>

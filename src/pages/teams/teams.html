@@ -7,12 +7,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Teams</ion-title>
+    <ion-title>{{tournament.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <button ion-item *ngFor="let team of teams" (click)="teamTapped($event, team)">{{team.name}}</button>
+  <div *ngFor="let team of teams">
+      <button ion-item *ngIf="team.visible" (click)="teamTapped($event, team)">{{team.name}}</button>
+  </div> 
 </ion-content>

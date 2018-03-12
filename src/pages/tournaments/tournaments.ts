@@ -16,6 +16,15 @@ import { TeamsPage } from '../teams/teams';
 })
 export class TournamentsPage {
 
+  tournaments = [
+    {id: 0, name: 'Campeonato Brasileiro'},
+    {id: 1, name: 'Campeonato Paulista'},
+    {id: 2, name: 'Campeonato Gaúcho'},
+    {id: 3, name: 'Premier League'},
+    {id: 4, name: 'La Liga'},
+    {id: 5, name: 'Bundesliga'}
+  ]
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -27,8 +36,8 @@ export class TournamentsPage {
     this.navCtrl.pop();
   }
 
-  itemTapped() {
-    this.navCtrl.push(TeamsPage);
+  itemTapped($event, tournament) {
+    this.navCtrl.push(TeamsPage, tournament);
   }
 
 
