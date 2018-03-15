@@ -27,6 +27,7 @@ export class MyApp {
       { title: 'Game', component: GamePage },
       { title: 'My Teams', component: MyTeamsPage },
       { title: 'Tournaments', component: TournamentsPage },
+
       { title: 'Teams', component: TeamsPage },
       { title: 'Team Detail', component: TeamDetailPage }
     ];

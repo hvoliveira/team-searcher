@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { TeamDetailPage } from '../team-detail/team-detail';
+import { EliteApi } from '../../shared/elite-api-service';
 
 /**
  * Generated class for the TeamsPage page.
@@ -18,26 +19,23 @@ export class TeamsPage {
 
   tournament: any;
 
-  teams = [
-    {id: 1, name: 'Palmeiras', description: "Salve Verdão!", inTournaments: ['Campeonato Brasileiro', 'Campeonato Paulista'], visible: false},
-    {id: 2, name: 'Santos', description: "Bosta", inTournaments: ['Campeonato Brasileiro', 'Campeonato Paulista'], visible: false},
-    {id: 3, name: 'Grêmio', description: "Bosta", inTournaments: ['Campeonato Brasileiro', 'Campeonato Gaúcho'], visible: false},
-    {id: 4, name: 'Internacional', description: "Bosta", inTournaments: ['Campeonato Brasileiro', 'Campeonato Gaúcho'], visible: false},
-    {id: 5, name: 'Chelsea', description: "Bosta", inTournaments: ['Premier League'], visible: false},
-    {id: 6, name: 'Manchester City', description: "Salve Gabriel Jesus!", inTournaments: ['Premier League'], visible: false},
-    {id: 7, name: 'Barcelona', description: "Bosta", inTournaments: ['La Liga'], visible: false},
-    {id: 8, name: 'Real Madrid', description: "Bosta", inTournaments: ['La Liga'], visible: false},
-    {id: 9, name: 'Bayern Munich', description: "Bosta", inTournaments: ['Bundesliga'], visible: false},
-    {id: 10, name: 'Borussia Dortmund', description: "Salve Reus!", inTournaments: ['Bundesliga'], visible: false}
-  ]
+  teams: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public eliteApi: EliteApi, public loadingController: LoadingController) {
     this.tournament = navParams.data;
-    this.populateTournament();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TeamsPage');
+
+    let loader = this.loadingController.create({content: "Getting data..."});
+    loader.present().then(() => {
+      this.eliteApi.getTeams(this.tournament.id).then(data => {
+        this.teams = data;
+        console.log("Loaded: ", data);
+        loader.dismiss();
+      });  
+    });
   }
 
   teamTapped($event, team) {
